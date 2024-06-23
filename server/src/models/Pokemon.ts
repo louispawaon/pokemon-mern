@@ -16,6 +16,7 @@ const PokemonSchema: Schema = new Schema({
     exp: { type: Number, required: true },
     height: { type: Number, required: true },
     weight: { type: Number, required: true },
+    artwork_url :{type: String, required: true},
   });
   
   export default mongoose.model<Pokemon>('Pokemon', PokemonSchema);

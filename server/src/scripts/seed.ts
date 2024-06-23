@@ -20,7 +20,7 @@ const fetchSavePokemonData = async (): Promise<void> => {
         const pokemonResponse = await Promise.all(pokemonRequest)
 
         for (const [index, res] of pokemonResponse.entries()){
-            const {name, types, abilities, base_experience, height, weight} = res.data;
+            const {name, types, abilities, base_experience, height, weight, sprites} = res.data;
 
             console.log(`Fetching Pokémon number ${index + 1}`);
 
@@ -54,6 +54,7 @@ const fetchSavePokemonData = async (): Promise<void> => {
                 exp: base_experience,
                 height,
                 weight,
+                artwork_url: sprites.other['official-artwork'].front_default
               });
 
             await pokemon.save()
