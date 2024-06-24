@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import dotenv from "dotenv";
-import Pokemon from '../models/Pokemon';
 
 dotenv.config();
 
@@ -9,7 +8,6 @@ const connectDatabase = async (): Promise<void> => {
     const mongoURI = process.env.MONGO_URI as string;
     await mongoose.connect(mongoURI);
     console.log('MongoDB connected successfully');
-
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error connecting to MongoDB:', error.message);

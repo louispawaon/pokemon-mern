@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import Users from "../models/Users";
 import {v4 as uuidv4} from 'uuid';
+import TokenBlacklist from "../models/TokenBlacklist";
 
 export const registerUser = async (req: Request, res: Response): Promise<Response> => {
 
@@ -91,6 +92,45 @@ export const loginUser = async (req: Request, res: Response): Promise<Response> 
         return res.status(500).json({
             message: "An unexpected error occurred.",
             success: false
+        });
+    }
+};
+
+export const logoutUser = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader) {
+            return res.status(401).json({
+                message: "No token provided",
+            });
+        }
+
+        const token = authHeader.replace("Bearer ", "");
+        const decodedToken: any = jwt.decode(token);
+        if (!decodedToken) {
+            return res.status(400).json({
+                message: "Invalid token",
+            });
+        }
+
+        const expiryDate = new Date(decodedToken.exp * 1000);
+
+        const blacklistEntry = new TokenBlacklist({ token, expiry: expiryDate });
+        await blacklistEntry.save();
+
+        return res.status(200).json({
+            message: "Logout successful",
+        });
+    } catch (error) {
+        if (error instanceof Error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+        return res.status(500).json({
+            success: false,
+            message: "An unexpected error occurred."
         });
     }
 };
