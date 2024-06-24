@@ -7,6 +7,7 @@ interface Pokemon extends Document {
     exp: number;
     height: number;
     weight: number;
+    artwork_url: string;
 }
 
 const PokemonSchema: Schema = new Schema({
