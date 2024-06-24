@@ -1,4 +1,6 @@
 import mongoose, {Schema, Document} from "mongoose";
+import Types from "./Types";
+import Abilities from "./Abilities";
 
 interface Pokemon extends Document {
     name: string,
@@ -12,8 +14,8 @@ interface Pokemon extends Document {
 
 const PokemonSchema: Schema = new Schema({
     name: { type: String, required: true, unique: true },
-    types: [{ type: Schema.Types.ObjectId, ref: 'Type' }],
-    abilities: [{ type: Schema.Types.ObjectId, ref: 'Ability' }],
+    types: [{ type: Schema.Types.ObjectId, ref: Types }],
+    abilities: [{ type: Schema.Types.ObjectId, ref: Abilities }],
     exp: { type: Number, required: true },
     height: { type: Number, required: true },
     weight: { type: Number, required: true },

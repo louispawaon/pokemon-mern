@@ -3,7 +3,7 @@ import Pokemon from "../models/Pokemon";
 
 export const getAllPokemon = async (req: Request, res: Response) => {
     try{
-        const pokemons = await Pokemon.find();
+        const pokemons = await Pokemon.find().populate('types').populate('abilities');
         res.json(pokemons);
     }
     catch(error){
@@ -18,7 +18,7 @@ export const getAllPokemon = async (req: Request, res: Response) => {
 
 export const getPokemonById = async (req: Request, res: Response) => {
     try{
-        const pokemon = await Pokemon.findById(req.params.id);
+        const pokemon = await Pokemon.findById(req.params.id).populate('types').populate('abilities');
         if (!pokemon){
             return res.status(404).json({ message: 'Pokemon not found' });
         }
