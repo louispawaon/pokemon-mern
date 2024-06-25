@@ -2,6 +2,7 @@ import request from 'supertest';
 import bcrypt from 'bcryptjs';
 import Users from '../src/models/Users';
 import app from '../src'; // Adjust the path based on your project structure
+import mongoose from 'mongoose';
 
 describe('User Controller Tests', () => {
   // Test data for registration and login
@@ -19,6 +20,7 @@ describe('User Controller Tests', () => {
 
   afterAll(async () => {
     await Users.deleteOne({ username: testUser.username });
+    await mongoose.connection.close();
   });
 
   describe('POST /api/auth/register', () => {
@@ -60,7 +62,7 @@ describe('User Controller Tests', () => {
         .expect(200);
 
       expect(response.body).toHaveProperty('accessToken');
-      jwtToken = response.body.accessToken; // Store token for later use in logout test
+      jwtToken = response.body.accessToken; 
     });
 
     it('should return 401 if username does not exist', async () => {
