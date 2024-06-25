@@ -4,7 +4,6 @@ import { useAuth } from './contexts/AuthContext';
 import Home from './pages/Home';
 import PokemonDetails from './components/Pokemon/PokemonDetails';
 import Navbar from './components/Navbar/Navbar';
-import MainComponent from './pages/Pokemon';
 
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
         <Navbar isLoggedIn={isLoggedIn} onLogout={logout} />
         <Routes>
           <Route path='/' Component={Home}/>
-          <Route path='/try' Component={MainComponent}/>
           <Route path='/pokemon/:id' Component={PokemonDetails}/>
         </Routes>
       </Router>
