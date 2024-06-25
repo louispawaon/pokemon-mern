@@ -36,21 +36,13 @@ const fetchSavePokemonData = async (): Promise<void> => {
             }
 
             // Ability
-            const abilityId = [];
-            for (const abilityInfo of abilities) {
-                let ability = await Abilities.findOne({ name: abilityInfo.ability.name });
-                if (!ability) {
-                    ability = new Abilities({ name: abilityInfo.ability.name });
-                    await ability.save();
-                }
-                abilityId.push(ability._id);
-            }
+            const abilityNames = abilities.map((abilityInfo: any) => abilityInfo.ability.name);
 
             // Pokemon
             const pokemon = new Pokemon({
                 name,
                 types: typeId,
-                abilities: abilityId,
+                abilities: abilityNames,
                 exp: base_experience,
                 height,
                 weight,
