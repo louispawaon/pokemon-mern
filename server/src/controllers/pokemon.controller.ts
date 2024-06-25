@@ -1,10 +1,27 @@
 import { Request, Response } from "express";
 import Pokemon from "../models/Pokemon";
+import Types from "../models/Types";
 
 export const getAllPokemon = async (req: Request, res: Response) => {
     try{
         const pokemons = await Pokemon.find().populate('types').populate('abilities');
         res.json(pokemons);
+    }
+    catch(error){
+        if (error instanceof Error) {
+            return res.status(500).json({ message: error.message });
+        } 
+          else {
+            return res.status(500).json({ message: 'An unknown error occurred' });
+        }
+    }
+}
+
+
+export const getAllTypes = async (req: Request, res: Response) => {
+    try{
+        const types = await Types.find();
+        res.json(types);
     }
     catch(error){
         if (error instanceof Error) {
@@ -47,6 +64,8 @@ export const createPokemon = async (req: Request, res: Response) => {
             weight,
             artwork_url
         })
+
+        console.log(newPokemon)
 
         const createdPokemon = await newPokemon.save();
         res.status(201).json(createdPokemon);
@@ -94,11 +113,12 @@ export const updatePokemon = async (req: Request, res: Response) => {
 export const deletePokemon = async (req: Request, res: Response) => {
     try {
         const pokemon = await Pokemon.findById(req.params.id);
+        console.log("the pokemon", pokemon)
         if (!pokemon) {
           return res.status(404).json({ message: 'Pokemon not found' });
         }
         
-        await pokemon.deleteOne();
+        await Pokemon.deleteOne({ _id: req.params.id });
         res.json({ message: 'Pokemon removed' });
     } 
     catch(error){
