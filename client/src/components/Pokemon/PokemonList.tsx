@@ -5,7 +5,7 @@ import PokemonCard from './PokemonCard';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../Form/Modal';
 import CreatePokemonForm from '../Form/CreatePokemon';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { IoMdAdd } from "react-icons/io";
 import { PokeType, PokemonType } from '../../utils/typePokemon';
 

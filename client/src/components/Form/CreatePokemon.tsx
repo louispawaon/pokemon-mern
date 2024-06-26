@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import API from '../../services/api';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { PokeType, PokemonAbility } from '../../utils/typePokemon';
 import { toast } from 'react-toastify';
 
+// Props Interface
 interface CreatePokemonFormProps {
   onClose: () => void;
   onSave: () => void;
@@ -12,6 +13,7 @@ interface CreatePokemonFormProps {
 const initialAbility = { name: '' };
 
 const CreatePokemonForm: React.FC<CreatePokemonFormProps> = ({ onClose, onSave }) => {
+  // Token from AuthContext
   const { token } = useAuth();
 
   const [name, setName] = useState('');
@@ -23,22 +25,26 @@ const CreatePokemonForm: React.FC<CreatePokemonFormProps> = ({ onClose, onSave }
   const [weight, setWeight] = useState('');
   const [artworkUrl, setArtworkUrl] = useState('');
 
+  // Handle Ability Changes
   const handleAbilityChange = (index: number, value: string) => {
     const newAbilities = abilities.slice();
     newAbilities[index] = { name: value };
     setAbilities(newAbilities);
   };
 
+  // Handle Adding New Abilities
   const handleAddAbility = () => {
     setAbilities([...abilities, initialAbility]);
   };
 
+  // Handle Removing Abilities
   const handleRemoveAbility = (index: number) => {
     const newAbilities = abilities.slice();
     newAbilities.splice(index, 1);
     setAbilities(newAbilities);
   };
 
+  // useEffect to fetch all Types in the Database using the specific API endpoint
   useEffect(() => {
     const fetchTypes = async () => {
       try {
@@ -55,12 +61,15 @@ const CreatePokemonForm: React.FC<CreatePokemonFormProps> = ({ onClose, onSave }
     fetchTypes();
   }, [token]);
 
+  // Handle Type Change
   const handleTypeChange = (type: string) => {
+    // Toggle the type in the types array
     setTypes((prevTypes) =>
       prevTypes.includes(type) ? prevTypes.filter((t) => t !== type) : [...prevTypes, type]
     );
   };
 
+  // Form Submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -77,6 +86,7 @@ const CreatePokemonForm: React.FC<CreatePokemonFormProps> = ({ onClose, onSave }
       artwork_url: artworkUrl,
     };
 
+    // POST request with the JWT token to Authorize the request
     try {
       await API.post('/api/pokemon', pokemon, {
         headers: {

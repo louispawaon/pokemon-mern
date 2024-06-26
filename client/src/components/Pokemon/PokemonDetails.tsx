@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import API from '../../services/api';
 import { typeColors } from '../../utils/typeColors';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import Modal from '../Form/Modal';
 import UpdatePokemonForm from '../Form/UpdatePokemon';
 import { PokeType, PokemonType } from '../../utils/typePokemon';

@@ -1,10 +1,12 @@
 
 import React, { useEffect, useState } from 'react';
 import API from '../../services/api';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { PokeType, PokemonType } from '../../utils/typePokemon';
 import { toast } from 'react-toastify';
 
+
+// Props Interface
 interface UpdatePokemonFormProps {
   pokemonId: string;
   onClose: () => void;
@@ -12,6 +14,7 @@ interface UpdatePokemonFormProps {
 }
 
 const UpdatePokemonForm: React.FC<UpdatePokemonFormProps> = ({ pokemonId, onClose, onSave }) => {
+  // Token from AuthContext
   const { token } = useAuth();
 
   const [name, setName] = useState('');
@@ -23,6 +26,7 @@ const UpdatePokemonForm: React.FC<UpdatePokemonFormProps> = ({ pokemonId, onClos
   const [weight, setWeight] = useState('');
   const [artworkUrl, setArtworkUrl] = useState('');
 
+  // useEffect to fetch Pokemon Details from the specific Pokemon
   useEffect(() => {
     const fetchPokemonDetails = async () => {
       try {
@@ -40,6 +44,7 @@ const UpdatePokemonForm: React.FC<UpdatePokemonFormProps> = ({ pokemonId, onClos
       }
     };
 
+    // useEffect to fetch all Types from the Database
     const fetchTypes = async () => {
       try {
         const response = await API.get('/api/pokemon/types', {
@@ -57,12 +62,14 @@ const UpdatePokemonForm: React.FC<UpdatePokemonFormProps> = ({ pokemonId, onClos
     fetchTypes();
   }, [pokemonId, token]);
 
+  // Handle Type Changes
   const handleTypeChange = (type: string) => {
     setTypes((prevTypes) =>
       prevTypes.includes(type) ? prevTypes.filter((t) => t !== type) : [...prevTypes, type]
     );
   };
 
+  // Form Submissions
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -79,6 +86,7 @@ const UpdatePokemonForm: React.FC<UpdatePokemonFormProps> = ({ pokemonId, onClos
       artwork_url: artworkUrl,
     };
 
+    // PUT request with the JWT token as Authorization
     try {
       await API.put(`/api/pokemon/${pokemonId}`, updatedPokemon, {
         headers: {
