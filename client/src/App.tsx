@@ -4,6 +4,8 @@ import { useAuth } from './contexts/AuthContext';
 import Home from './pages/Home';
 import PokemonDetails from './components/Pokemon/PokemonDetails';
 import Navbar from './components/Navbar/Navbar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
           <Route path='/' Component={Home}/>
           <Route path='/pokemon/:id' Component={PokemonDetails}/>
         </Routes>
+        <ToastContainer position='bottom-right'/>
       </Router>
 
   )
