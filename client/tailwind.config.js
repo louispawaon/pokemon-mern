@@ -6,7 +6,8 @@ export default {
   ],
   theme: {
     fontFamily:{
-      pokemon: ["Pokemon", "sans-serif"]
+      pokemon: ["Pokemon", "sans-serif"],
+      gillSans: ["GillSans", "sans-serif"]
     },
     extend: {
       colors:{

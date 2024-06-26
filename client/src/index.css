@@ -7,6 +7,10 @@
   src: url(./assets/fonts/Pokemon.ttf);
 }
 
+@font-face {
+  font-family: "GillSans";
+  src: url(./assets/fonts/GillSans.ttf);
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
