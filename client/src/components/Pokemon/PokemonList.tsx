@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import API from '../../services/api';
 import { Link } from 'react-router-dom';
-import PokemonCard from '../Card';
+import PokemonCard from './PokemonCard';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../Form/Modal';
 import CreatePokemonForm from '../Form/CreatePokemon';

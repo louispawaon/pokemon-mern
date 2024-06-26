@@ -78,7 +78,6 @@ const CreatePokemonForm: React.FC<CreatePokemonFormProps> = ({ onClose, onSave }
     };
 
     try {
-      console.log(token)
       await API.post('/api/pokemon', pokemon, {
         headers: {
           Authorization: `Bearer ${token}`,

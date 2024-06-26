@@ -7,6 +7,7 @@ import Modal from '../Form/Modal';
 import UpdatePokemonForm from '../Form/UpdatePokemon';
 import { PokeType, PokemonType } from '../../utils/typePokemon';
 import { toast } from 'react-toastify';
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const PokemonDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -58,22 +59,30 @@ const PokemonDetails = () => {
 
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-lg">
+    <div className="flex justify-center items-center h-screen bg-slate-200">
+      <div className="max-w-4xl mx-auto p-4 bg-pokemonBlue-700 rounded-lg shadow-lg">
+      <div className="flex justify-between items-center mb-4">
+          <button
+            onClick={() => navigate(-1)}
+            className="bg-pokemonGold-500 hover:bg-pokemonGold-600 text-white py-1 px-4 rounded flex items-center gap-2"
+          >
+            <IoMdArrowRoundBack /> Back
+          </button>
+        </div>
         <div className="flex flex-col md:flex-row items-center">
           <img
-            className="w-full md:w-[50%] object-cover mb-4 md:mb-0 md:mr-6"
+            className="w-full md:w-[50%] object-cover mb-4 md:mb-0 md:mr-6 border-pokemonGold-500 bg-pokemonYellow-400"
             src={pokemon.artwork_url}
             alt={pokemon.name}
           />
           <div className="flex-1">
             <div className="flex justify-between items-center mb-2">
-              <h1 className="text-3xl font-bold text-gray-800 uppercase">{pokemon.name}</h1>
-              <div className="bg-gray-200 text-gray-700 font-semibold py-1 px-2 rounded-full">
+              <h1 className="text-3xl font-bold uppercase font-gillSans text-white">{pokemon.name}</h1>
+              <div className="bg-gray-200 text-pokemonGold-800 font-semibold py-1 px-2 rounded-full">
                 EXP {pokemon.exp}
               </div>
             </div>
-            <p className="text-gray-700 text-base mb-2">
+            <p className="text-white text-base mb-2">
               <strong>Types:</strong>{' '}
               {pokemon.types.map((type: PokeType) => (
                 <span
@@ -84,31 +93,27 @@ const PokemonDetails = () => {
                 </span>
               ))}
             </p>
-            <p className="text-gray-700 text-base mb-2">
+            <p className="text-white text-base mb-2">
               <strong>Abilities:</strong>{' '}
-              {pokemon.abilities.map((ability: string) => (
-                <span key={ability} className="mr-2 capitalize">
-                  {ability.charAt(0).toUpperCase() + ability.slice(1)}
-                </span>
-              ))}
+              {pokemon.abilities.map((ability: string) => ability.charAt(0).toUpperCase() + ability.slice(1)).join(', ')}
             </p>
-            <p className="text-gray-700 text-base mb-2">
+            <p className="text-white text-base mb-2">
               <strong>Height:</strong> {pokemon.height}
             </p>
-            <p className="text-gray-700 text-base mb-2">
+            <p className="text-white text-base mb-2">
               <strong>Weight:</strong> {pokemon.weight}
             </p>
             {isLoggedIn && (
               <div className="flex space-x-2 mt-2">
                 <button
                   onClick={() => setIsUpdateModalOpen(true)}
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-4 rounded"
+                  className="bg-pokemonYellow-700 hover:bg-pokemonYellow-600 text-white py-1 px-4 rounded"
                 >
                   Update
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded"
+                  className="bg-pokemonRed-900 hover:bg-pokemonRed-700 text-white py-1 px-4 rounded"
                 >
                   Delete
                 </button>

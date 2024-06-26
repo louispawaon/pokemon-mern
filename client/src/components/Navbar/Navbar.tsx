@@ -22,8 +22,8 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, onLogout }) => {
 
   return (
     <>
-      <header className="bg-gray-800 p-4 flex items-center justify-between md:flex-row flex-col">
-        <div className="text-yellow-400 stroke-blue-700 text-2xl font-semibold font-pokemon">
+      <header className="bg-pokemonDarkRed-600 p-4 flex items-center justify-between md:flex-row flex-col">
+        <div className="text-yellow-400 text-4xl font-semibold font-pokemon py-2">
           <Link to='/'>
             Pokedex
           </Link>
@@ -32,13 +32,13 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, onLogout }) => {
           {!isLoggedIn && (
             <>
               <button
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded flex items-center gap-2"
+                className="bg-pokemonBlue-700 hover:bg-pokemonBlue-600 text-white py-2 px-3 rounded flex items-center gap-2"
                 onClick={() => setShowLoginModal(true)}
               >
                 <IoLogIn />Login
               </button>
               <button
-                className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded flex items-center gap-2 "
+                className="bg-pokemonYellow-700 hover:bg-pokemonYellow-600 text-white py-2 px-4 rounded flex items-center gap-2 "
                 onClick={() => setShowRegisterModal(true)}
               >
                <FaUserPlus /> Register
@@ -47,7 +47,7 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, onLogout }) => {
           )}
           {isLoggedIn && (
             <button
-              className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded flex items-center gap-2"
+              className="bg-pokemonRed-900 hover:bg-pokemonRed-700 text-white py-2 px-4 rounded flex items-center gap-2"
               onClick={handleLogout}
             >
               <IoLogOut /> Logout

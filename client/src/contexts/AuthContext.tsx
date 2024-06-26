@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = (token:string) => {
     setIsLoggedIn(true);
     setToken(token)
-    console.log(token)
   };
 
   const logout = () => {
