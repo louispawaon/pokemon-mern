@@ -5,24 +5,19 @@ import Users from "../models/Users";
 import {v4 as uuidv4} from 'uuid';
 import TokenBlacklist from "../models/TokenBlacklist";
 
+// Register User
 export const registerUser = async (req: Request, res: Response): Promise<Response> => {
-
     const { username, password } = req.body;
 
     try {
-
         const verifyUsername = await Users.findOne({ username });
-
         if (verifyUsername) {
             return res.status(403).json({
                 message: "Username already used"
             });
         }
-
         const userId = uuidv4();
-
         const hash = await bcrypt.hash(password, 10);
-
         const user = new Users({
             userId,
             username,
@@ -49,6 +44,7 @@ export const registerUser = async (req: Request, res: Response): Promise<Respons
     }
 };
 
+// Login User
 export const loginUser = async (req: Request, res: Response): Promise<Response> => {
     const { username, password } = req.body;
 
@@ -96,6 +92,7 @@ export const loginUser = async (req: Request, res: Response): Promise<Response> 
     }
 };
 
+// Logout User
 export const logoutUser = async (req: Request, res: Response): Promise<Response> => {
     try {
         const authHeader = req.headers.authorization;

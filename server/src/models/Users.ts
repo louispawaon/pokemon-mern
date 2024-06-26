@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+// Users Model Schema
 interface Users extends Document {
     username: string;
     password: string;

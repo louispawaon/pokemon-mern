@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+//Token Blacklist Model Schema - an approach responsible for storing the JWT tokens to avoid being used repetitively in requests
 interface TokenBlacklist extends Document {
     token: string;
     expiry: Date;

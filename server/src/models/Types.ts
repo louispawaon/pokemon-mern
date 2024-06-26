@@ -1,5 +1,6 @@
 import mongoose, {Schema, Document} from "mongoose";
 
+// Types Model Schema
 interface Types extends Document{
     name: string;
 }

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// Database configuration to be called to other files if connection to DB is necessary
 const connectDatabase = async (): Promise<void> => {
   try {
     const mongoURI = process.env.MONGO_URI as string;

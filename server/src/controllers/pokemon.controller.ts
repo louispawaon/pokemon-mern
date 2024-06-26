@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Pokemon from "../models/Pokemon";
 import Types from "../models/Types";
 
+// Get All Pokemon including their types and abilities
 export const getAllPokemon = async (req: Request, res: Response) => {
     try{
         const pokemons = await Pokemon.find().populate('types').populate('abilities');
@@ -17,7 +18,7 @@ export const getAllPokemon = async (req: Request, res: Response) => {
     }
 }
 
-
+// Get All Types in the Database
 export const getAllTypes = async (req: Request, res: Response) => {
     try{
         const types = await Types.find();
@@ -33,6 +34,7 @@ export const getAllTypes = async (req: Request, res: Response) => {
     }
 }
 
+// Get a specific Pokemon by ID
 export const getPokemonById = async (req: Request, res: Response) => {
     try{
         const pokemon = await Pokemon.findById(req.params.id).populate('types').populate('abilities');
@@ -51,6 +53,7 @@ export const getPokemonById = async (req: Request, res: Response) => {
     }
 }
 
+// Create Pokemon
 export const createPokemon = async (req: Request, res: Response) => {
     const {name, types, abilities, exp, height, weight, artwork_url} = req.body;
 
@@ -80,6 +83,7 @@ export const createPokemon = async (req: Request, res: Response) => {
     }
 }
 
+// Update Pokemon
 export const updatePokemon = async (req: Request, res: Response) => {
     const {name, types, abilities, exp, height, weight, artwork_url} = req.body;
 
@@ -110,6 +114,7 @@ export const updatePokemon = async (req: Request, res: Response) => {
     }
 }
 
+//Delete Pokemon
 export const deletePokemon = async (req: Request, res: Response) => {
     try {
         const pokemon = await Pokemon.findById(req.params.id);

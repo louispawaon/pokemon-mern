@@ -1,6 +1,7 @@
 import mongoose, {Schema, Document} from "mongoose";
 import Types from "./Types";
 
+// Pokemon Model Schema
 interface Pokemon extends Document {
     name: string,
     types: Schema.Types.ObjectId[];
