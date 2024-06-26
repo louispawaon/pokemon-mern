@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import { PokeType, PokemonAbility } from '../../utils/typePokemon';
+import { toast } from 'react-toastify';
 
 interface CreatePokemonFormProps {
   onClose: () => void;
@@ -85,8 +86,10 @@ const CreatePokemonForm: React.FC<CreatePokemonFormProps> = ({ onClose, onSave }
       });
       onSave();
       onClose();
+      toast.success("Pokemon added to Pokedex!")
     } catch (error) {
       console.error('Failed to create Pokémon:', error);
+      toast.error("Please re-check Pokemon details.")
     }
   };
 

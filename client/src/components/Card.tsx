@@ -15,15 +15,15 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   artwork_url,
 }) => {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white hover:shadow-2xl transition duration-300 ease-in-out">
+    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-2xl transition duration-300 ease-in-out">
       <img
-        className="w-full object-cover"
+        className="w-full object-cover border-4 border-yellow-400 rounded-t-lg"
         src={artwork_url}
         alt={name}
       />
       <div className="px-6 py-4 h-40">
         <div className="mb-2">
-          <div className="font-bold text-2xl text-gray-800 uppercase">{name}</div>
+          <div className="font-bold text-2xl text-gray-800 capitalize font-gillSans">{name}</div>
           <div className="text-gray-700 font-semibold">{`EXP ${base_exp}`}</div>
         </div>
         <div className="flex flex-wrap mb-2">

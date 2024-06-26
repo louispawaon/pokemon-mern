@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import API from '../../services/api';
@@ -6,7 +5,8 @@ import { typeColors } from '../../utils/typeColors';
 import { useAuth } from '../../contexts/AuthContext';
 import Modal from '../Form/Modal';
 import UpdatePokemonForm from '../Form/UpdatePokemon';
-import { PokemonType } from '../../utils/typePokemon';
+import { PokeType, PokemonType } from '../../utils/typePokemon';
+import { toast } from 'react-toastify';
 
 const PokemonDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,12 +41,21 @@ const PokemonDetails = () => {
         },
       });
       navigate('/');
+      toast.success("Pokemon successfully deleted!")
     } catch (error) {
       console.error('Failed to delete Pokémon:', error);
+      toast.error("Failed to delete Pokémon!")
     }
   };
 
-  if (!pokemon) return <div>Loading...</div>;
+  if (!pokemon) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <span className="text-3xl font-bold text-gray-500">Loading...</span>
+      </div>
+    );
+  }
+
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -66,9 +75,9 @@ const PokemonDetails = () => {
             </div>
             <p className="text-gray-700 text-base mb-2">
               <strong>Types:</strong>{' '}
-              {pokemon.types.map((type: any) => (
+              {pokemon.types.map((type: PokeType) => (
                 <span
-                  key={type}
+                  key={type._id}
                   className={`mr-2 px-2 py-1 rounded-sm ${typeColors[type.name] || 'bg-gray-400 text-white'}`}
                 >
                   {type.name.charAt(0).toUpperCase() + type.name.slice(1)}

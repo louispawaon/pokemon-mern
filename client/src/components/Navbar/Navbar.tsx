@@ -4,6 +4,7 @@ import LoginModal from '../Auth/LoginModal';
 import { Link } from 'react-router-dom';
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa6";
+import { toast } from 'react-toastify';
 
 type Props = {
   isLoggedIn: boolean;
@@ -13,6 +14,11 @@ type Props = {
 const Navbar: React.FC<Props> = ({ isLoggedIn, onLogout }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+
+  const handleLogout = () => {
+    onLogout();
+    toast.success('Logged out successfully!');
+  };
 
   return (
     <>
@@ -42,7 +48,7 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, onLogout }) => {
           {isLoggedIn && (
             <button
               className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded flex items-center gap-2"
-              onClick={onLogout}
+              onClick={handleLogout}
             >
               <IoLogOut /> Logout
             </button>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import API from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
+import { toast } from 'react-toastify';
 
 type Props = {
   show: boolean;
@@ -21,6 +22,7 @@ const RegisterModal: React.FC<Props> = ({ show, onClose, onShowLogin }) => {
       const response = await API.post('/api/auth/register', { username, password });
       console.log(response)
       register();
+      toast.success("User registered successfully!")
       onClose();
       onShowLogin();
     } catch (error) {

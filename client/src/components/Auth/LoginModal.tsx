@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import API from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
+import { toast } from 'react-toastify';
 
 type Props = {
   show: boolean;
@@ -21,8 +23,10 @@ const LoginModal: React.FC<Props> = ({ show, onClose, onShowRegister }) => {
       const {accessToken} = response.data
       login(accessToken)
       onClose();
-    } catch (error) {
+      toast.success("Logged in successfully!")
+    } catch (error:any) {
        console.log(error)
+      toast.error("Incorrect Username or Password")
     }
   };
 

@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React, { useEffect, useState } from 'react';
 import API from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import { PokeType, PokemonType } from '../../utils/typePokemon';
+import { toast } from 'react-toastify';
 
 interface UpdatePokemonFormProps {
   pokemonId: string;
@@ -28,7 +29,7 @@ const UpdatePokemonForm: React.FC<UpdatePokemonFormProps> = ({ pokemonId, onClos
         const response = await API.get<PokemonType>(`/api/pokemon/${pokemonId}`);
         const pokemon = response.data;
         setName(pokemon.name);
-        setTypes(pokemon.types.map((type: any) => type.name));
+        setTypes(pokemon.types.map((type: PokeType) => type.name));
         setAbilities(pokemon.abilities);
         setBaseExperience(pokemon.exp.toString());
         setHeight(pokemon.height.toString());
@@ -86,8 +87,10 @@ const UpdatePokemonForm: React.FC<UpdatePokemonFormProps> = ({ pokemonId, onClos
       });
       onSave();
       onClose();
+      toast.info("Pokemon successfully updated!")
     } catch (error) {
       console.error('Failed to update Pokémon:', error);
+      toast.error("Please re-check Pokemon details.")
     }
   };
 
